@@ -1,0 +1,15 @@
+{
+  "name": "video-stream-project-backend",
+  "version": "1.0.0",
+  "description": "a video stream backend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
