@@ -1,17 +1,24 @@
+import mongoose from "mongoose";
+import { DB_NAME } from "./constants";
 
-import express from 'express';
+/*
+import express from "express"
 const app = express();
+(async()=>{
+  try {
+    await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
+    app.on('error',(error)=>{
+      console.error("MongoDB connection error:", error);
+      throw error
+    })
 
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-app.get("/login", (req, res) => {
-  res.send("login successfully!");
-});
-
-const port = process.env.PORT || 4000;
-
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+    app.listen(process.env.PORT, ()=>{
+      console.log(`Server is running on port ${process.env.PORT}`);
+    })
+  } catch (error) {
+    console.error("Error connecting to MongoDB", error);
+    // process.exit(1);
+    throw err
+  }
+})()
+*/
