@@ -5,8 +5,11 @@ dotenv.config({
   path: "./env",
 });
 
+// SECOND APPROACH -- BEST --
 connectDB();
 
+
+// FIRST APPROACH -- COMMON --
 /*
 import express from "express"
 const app = express();
