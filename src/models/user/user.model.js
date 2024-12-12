@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { JsonWebTokenError } from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const userSchema = new mongoose.Schema(
   {
@@ -46,5 +48,16 @@ const userSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// Hashing the password before saving it to the database
+userSchema.pre("save", function(next){
+  if(!this.isModified("password")) return next(); // agr modify nhi howi password field 
+  this.password = bcrypt.hash(this.password, 10);
+  next();
+})
+
+userSchema.methods.isPasswordCorrect = async function(password){
+  return await bcrypt.compare(password, this.password);
+}
 
 export const User = mongoose.model("User", userSchema);
