@@ -2,7 +2,7 @@ import { asyncHandler } from "../../utils/asyncHandler.js";
 import { ApiError } from "../../utils/ApiError.js";
 import { User } from "../../models/user/user.model.js";
 import { uploadOnCloudinary } from "../../utils/cloudinary.js";
-import {ApiResponse} from "../../utils/ApiResponse.js"
+import { ApiResponse } from "../../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
   // get user details from frontend
@@ -26,7 +26,7 @@ const registerUser = asyncHandler(async (req, res) => {
     throw new ApiError(400, "All fields are required");
   }
 
-  const existedUser = User.findOne({
+  const existedUser = await User.findOne({
     $or: [{ email }, { username }],
   });
   console.log("existedUser-->", existedUser);
@@ -36,10 +36,14 @@ const registerUser = asyncHandler(async (req, res) => {
   }
 
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  const coverImageLocalPath = req.files?.coverImage[0]?.path;
   console.log(avatarLocalPath);
+  // const coverImageLocalPath = req.files?.coverImage[0]?.path;
+  let coverImageLocalPath;
+  if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
+    coverImageLocalPath = req.files.coverImage[0].path;
+  }
   console.log(coverImageLocalPath);
-
+  
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar file is required");
   }
@@ -61,14 +65,17 @@ const registerUser = asyncHandler(async (req, res) => {
   });
 
   // by default all select add (-)Sign unselect field:
-  const checkUserById = await User.findById(createUser._id).select("-password -refreshToken");
+  const checkUserById = await User.findById(createUser._id).select(
+    "-password -refreshToken"
+  );
 
   if (!checkUserById) {
     throw new ApiError("Something went wrong while registering the user");
   }
 
-  return res.send(201).json( new ApiResponse(200,createUser,"User registered successfully") );
-
+  return res
+    .status(201)
+    .json(new ApiResponse(200, "User registered successfully", createUser));
 });
 
 export { registerUser };
