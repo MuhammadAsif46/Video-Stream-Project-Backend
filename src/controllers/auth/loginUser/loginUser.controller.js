@@ -15,7 +15,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
     await user.save({ validateBeforeSave: false });
 
     return { accessToken, refreshToken };
-
   } catch (error) {
     throw new ApiError(
       500,
@@ -56,6 +55,28 @@ const loginUser = asyncHandler(async (req, res) => {
   const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
     existedUser._id
   );
+
+  const loggedInUser = await User.findById(existedUser._id).select(
+    "-password -refreshToken"
+  );
+
+  //  modify only server (client only view)
+  const options = {
+    httpOnly: true,
+    secure: true,
+  };
+
+  return res
+    .status(200)
+    .cookie("accessToken", accessToken, options)
+    .cookie("refreshToken", refreshToken, options)
+    .json(
+      new ApiResponse(200, "User logged in successfully", {
+        user: loggedInUser,
+        accessToken,
+        refreshToken,
+      })
+    );
 });
 
 export { loginUser };
