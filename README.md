@@ -3,7 +3,7 @@ A backend implementation for a video streaming platform with features like user 
 
 
 
-# Understanding Access Tokens and Refresh Tokens
+## Understanding Access Tokens and Refresh Tokens
 
 This topic explains the concepts of Access Tokens and Refresh Tokens in a clear and concise way. It is a handy guide for developers looking to implement secure authentication mechanisms in their applications.
 
@@ -41,5 +41,5 @@ This topic explains the concepts of Access Tokens and Refresh Tokens in a clear 
 
 ---
 
-This repository aims to demystify these concepts with simple examples and practical insights to help you design a secure authentication flow.
+This topics aims to demystify these concepts with simple examples and practical insights to help you design a secure authentication flow.
 
