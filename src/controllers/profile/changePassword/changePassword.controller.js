@@ -3,7 +3,7 @@ import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import {User} from "../../../models/user/user.model.js"
 
-const chnagePasssword = asyncHandler(async (req, res) => {
+const changePasssword = asyncHandler(async (req, res) => {
 
     // req.body -> data
     // find user by id
@@ -19,7 +19,7 @@ const chnagePasssword = asyncHandler(async (req, res) => {
     //     throw new ApiError(400, "Passwords do not match");
     // }
     
-    const user = User.findById(req.user?.id);
+    const user = User.findById(req.user?._id);
     const isPasswordCorrect = await user.isPasswordCorrect(oldPassword);
 
     if (!isPasswordCorrect) {
