@@ -1,8 +1,8 @@
 import { Router } from "express";
 import { registerUser } from "../../controllers/auth/registerUser/registerUser.controller.js";
 import { loginUser } from "../../controllers/auth/loginUser/loginUser.controller.js";
-import { refreshAccessToken } from "../../controllers/auth/accessToken/accessToken.controller.js";
-import { logout} from "../../controllers/auth/logout/logout.controller.js";
+import { refreshAccessToken } from "../../controllers/user/accessToken/accessToken.controller.js";
+import { logout} from "../../controllers/profile/logout/logout.controller.js";
 import { upload } from "../../middlewares/multer/multer.middleware.js";
 import { verifyJWT } from "../../middlewares/auth/auth.middleware.js";
 
