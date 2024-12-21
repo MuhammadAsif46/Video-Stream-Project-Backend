@@ -34,3 +34,5 @@ const chnagePasssword = asyncHandler(async (req, res) => {
       .json(new ApiResponse(200,"Password Changed Successfully",{}));
 
 });
+
+export { changePasssword };
