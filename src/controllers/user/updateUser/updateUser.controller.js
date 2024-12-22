@@ -45,6 +45,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Avatar file is required");
   }
 
+  // delete avatar from cloudniary
   const avatar = await uploadOnCloudinary(avatarLocalPath);
 
   if (!avatar.url) {
@@ -67,7 +68,6 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
 
 });
 
-
 const updateUserCoverImage = asyncHandler(async (req, res) => {
   // req.file -> coverImage file
   // find user by id
@@ -80,6 +80,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     throw new ApiError(400, "Cover image is required");
   }
 
+  // delete coverImage from cloudniary
   const coverImage = await uploadOnCloudinary(coverImageLocalPath);
 
   if (!coverImage.url) {
@@ -93,13 +94,12 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
         coverImage: coverImage.url,
       },
     },
-    { new: true,}
+    { new: true }
   ).select("-password");
 
   return res
     .status(200)
     .json(new ApiResponse(200, "Cover image updated successfully", user));
-
 });
 
 export { updateUserDetails, updateUserAvatar, updateUserCoverImage };
