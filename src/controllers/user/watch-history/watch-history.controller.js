@@ -5,6 +5,8 @@ import { User } from "../../../models/user/user.model.js";
 import mongoose from "mongoose";
 
 const getUserWatchHistory = asyncHandler(async (req, res) => {
+ 
+  
   const user = await User.aggregate([
     {
       $match: {
@@ -14,15 +16,15 @@ const getUserWatchHistory = asyncHandler(async (req, res) => {
     {
       $lookup: {
         from: "videos",
-        localFields: "watchHistory",
-        foreignFields: "_id",
+        localField: "watchHistory",
+        foreignField: "_id",
         as: "watchHistory",
         pipeline: [
           {
             $lookup: {
               from: "users",
-              localFields: "owner",
-              foreignFields: "_id",
+              localField: "owner",
+              foreignField: "_id",
               as: "owner",
               pipeline: [
                 {
@@ -35,18 +37,19 @@ const getUserWatchHistory = asyncHandler(async (req, res) => {
               ],
             },
           },
+          // frontend person issue resolve direct pass object
+          {
+            $addFields: {
+              owner: {
+                $first: "$owner",
+              },
+            },
+          },
         ],
       },
     },
-    // frontend person issue resolve direct pass object
-    {
-      $addFields: {
-        owner: {
-          $first: "$owner",
-        },
-      },
-    },
   ]);
+  
 
   return res
     .status(200)

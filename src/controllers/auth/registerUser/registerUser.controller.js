@@ -16,7 +16,6 @@ const registerUser = asyncHandler(async (req, res) => {
   // return response
 
   const { username, email, fullname, password } = req.body;
-  console.log("username: " + username, "email: ", email);
 
   // TODO: implement registration logic here
 
@@ -29,20 +28,17 @@ const registerUser = asyncHandler(async (req, res) => {
   const existedUser = await User.findOne({
     $or: [{ email }, { username }],
   });
-  console.log("existedUser-->", existedUser);
 
   if (existedUser) {
     throw new ApiError(409, "User Email or Username already exists");
   }
 
   const avatarLocalPath = req.files?.avatar[0]?.path;
-  console.log(avatarLocalPath);
   // const coverImageLocalPath = req.files?.coverImage[0]?.path;
   let coverImageLocalPath;
   if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length > 0){
     coverImageLocalPath = req.files.coverImage[0].path;
   }
-  console.log(coverImageLocalPath);
   
   if (!avatarLocalPath) {
     throw new ApiError(400, "Avatar file is required");
