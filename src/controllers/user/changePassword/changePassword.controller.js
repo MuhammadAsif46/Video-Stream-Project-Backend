@@ -3,7 +3,7 @@ import { ApiError } from "../../../utils/ApiError.js";
 import { ApiResponse } from "../../../utils/ApiResponse.js";
 import {User} from "../../../models/user/user.model.js"
 
-const changePasssword = asyncHandler(async (req, res) => {
+const changePassword = asyncHandler(async (req, res) => {
 
     // req.body -> data
     // find user by id
@@ -35,4 +35,4 @@ const changePasssword = asyncHandler(async (req, res) => {
 
 });
 
-export { changePasssword };
+export { changePassword };
