@@ -10,11 +10,10 @@ import {
   updateUserDetails,
   updateUserCoverImage,
   getUserWatchHistory,
+  getUserChannelProfile,
 } from "../../controllers/user/index.js";
 import { upload } from "../../middlewares/multer/multer.middleware.js";
 import { verifyJWT } from "../../middlewares/auth/auth.middleware.js";
-
-import { getUserChannelProfile } from "../../controllers/channel-profile/channel-profile.controller.js";
 
 const router = Router();
 
