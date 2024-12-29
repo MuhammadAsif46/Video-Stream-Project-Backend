@@ -7,7 +7,7 @@ import {
   togglePublishStatus,
   updateVideo,
 } from "../../controllers/video/index.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
+import { verifyJWT } from "../../middlewares/auth/auth.middleware.js";
 import { upload } from "../middlewares/multer.middleware.js";
 
 const router = Router();
